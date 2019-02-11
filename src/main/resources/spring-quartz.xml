@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--spring quartz-->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="quartzProperties">
+            <props>
+                <!--实例唯一标识,值任意-->
+                <prop key="org.quartz.scheduler.instanceName">SAScheduler</prop>
+                <!--基于主机名和时间戳来产生实例ID-->
+                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+                <!-- 线程池配置 -->
+                <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+                <prop key="org.quartz.threadPool.threadCount">20</prop>
+                <prop key="org.quartz.threadPool.threadPriority">5</prop>
+                <!-- JobStore配置 -->
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.StdJDBCDelegate</prop>
+                <!-- 集群配置 -->
+                <prop key="org.quartz.jobStore.isClustered">false</prop>
+                <prop key="org.quartz.jobStore.clusterCheckinInterval">15000</prop>
+                <prop key="org.quartz.jobStore.maxMisfiresToHandleAtATime">1</prop>
+                <prop key="org.quartz.jobStore.misfireThreshold">120000</prop>
+                <!-- 表前缀 -->
+                <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
+            </props>
+        </property>
+
+        <property name="schedulerName" value="SAScheduler"/>
+
+        <!--延时启动,应用启动完后QuartzScheduler再启动 -->
+        <property name="startupDelay" value="30"/>
+
+        <property name="applicationContextSchedulerContextKey" value="applicationContextKey"/>
+
+        <!--可选,QuartzScheduler启动时更新己存在Job,这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了 -->
+        <property name="overwriteExistingJobs" value="true"/>
+
+        <!-- 设置自动启动,默认为true -->
+        <property name="autoStartup" value="false"/>
+
+    </bean>
+</beans>

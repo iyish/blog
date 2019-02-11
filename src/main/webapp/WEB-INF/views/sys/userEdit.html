@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <base href="${base}"/>
+    <title>用户新增和修改</title>
+    <#include "../header.html"/>
+</head>
+<body>
+<div style="margin:auto">
+    <div class="panel-body">
+        <form id="userForm">
+            <input id="userId" name="id" type="hidden" value="${(user.id)!}">
+            <div class="form-group">
+                <label for="username" class="control-label">用户名：</label>
+                <input id="username" name="username" class="form-control" type="text"
+                       autocomplete="new-password"
+                       maxlength="50"
+                       placeholder="用户名"
+                       value="${(user.username)!}">
+            </div>
+            <#if !(user.id)??>
+                <div class="form-group">
+                    <label for="password" class="control-label">密码：</label>
+                    <input id="password" name="password" class="form-control" type="password"
+                           autocomplete="new-password"
+                           maxlength="50"
+                           placeholder="密码"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password" class="control-label">确认密码：</label>
+                    <input id="confirm_password" name="confirm_password" class="form-control" type="password"
+                           autocomplete="new-password"
+                           maxlength="50"
+                           placeholder="确认密码">
+                </div>
+            </#if>
+            <div class="form-group">
+                <label for="realname" class="control-label">姓名：</label>
+                <input id="realname" name="realname" class="form-control" type="text"
+                       maxlength="50"
+                       placeholder="姓名"
+                       value="${(user.realname)!}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">部门：</label>
+                <input id="deptId" name="deptId" class="hidden" value="${(user.deptId)!}">
+                <input id="deptName" name="deptName" class="form-control" style="cursor: pointer;" type="text"
+                       readonly="readonly"
+                       placeholder="所属部门"
+                       value="${(user.deptName)!}"
+                       onclick="selectDept()">
+            </div>
+            <div class="form-group">
+                <label for="phone" class="control-label">手机：</label>
+                <input id="phone" name="phone" class="form-control" type="text"
+                       maxlength="11"
+                       placeholder="手机"
+                       value="${(user.phone)!}">
+            </div>
+            <div class="form-group">
+                <label for="email" class="control-label">邮箱：</label>
+                <input id="email" name="email" class="form-control" type="email"
+                       maxlength="50"
+                       placeholder="邮箱"
+                       value="${(user.email)!}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">状态:</label>
+                <label class="radio-inline i-checks">
+                    <input type="radio" name="status" value="1"
+                    <#if !(user.status)??||((user.status)??&&(user.status)==1)>checked</#if>
+                    /> 正常
+                </label>
+                <label class="radio-inline i-checks">
+                    <input type="radio" name="status" value="0"
+                    <#if (user.status)??&&(user.status)==0>checked</#if>
+                    /> 禁用
+                </label>
+            </div>
+            <input type="hidden" name="roleIds" id="roleIds">
+            <div class="form-group">
+                <label class="control-label">角色:</label>
+                <#list roles as role>
+                    <label class="checkbox-inline i-checks">
+                        <input type="checkbox" name="role" value="${role.id}"
+                        <#if (user.roleIds)??&&(user.roleIds)?seq_contains((role.id))>checked</#if>
+                        /> ${role.roleName}
+                    </label>
+                </#list>
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+</div>
+<!-- 部门选择 -->
+<div id="deptLayer" style="display: none">
+    <ul id="deptTree" class="ztree"></ul>
+</div>
+<#include "../footer.html"/>
+<!--用户js-->
+<script src="statics/js/sys/userEdit.js?t=${.now?long}"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <base href="${base}"/>
+    <title>系统日志</title>
+    <#include "../header.html"/>
+</head>
+<body>
+<div class="row" style="margin:auto">
+    <div class="panel-body">
+        <!-- 过滤条件 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="userFrm" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <input style="display:none"/>
+                            <input type="text" class="form-control" id="username" name="username"
+                                   placeholder="用户名"
+                                   onkeydown="if(event.keyCode===13)query();">
+                        </div>
+                        <div class="btn-group">
+                            <#if shiro.hasPermission("sys:log:list")>
+                                <button type="button" class="btn btn-primary" id="btnQuery" onclick="query()">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;查询
+                                </button>
+                            </#if>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <table id="bsTable"></table>
+    </div>
+</div>
+<#include "../footer.html"/>
+<!--用户js-->
+<script src="statics/js/sys/log.js?t=${.now?long}"></script>
+</body>
+</html>

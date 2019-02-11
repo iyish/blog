@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <base href="${base}"/>
+    <title>修改密码</title>
+    <#include "../header.html"/>
+    <link rel="stylesheet" href="statics/plugins/hideshowpassword/css/public-inner-toggle-genericon.css">
+    <style type="text/css">
+        /**
+         * 修改颜色
+         */
+        .hideShowPassword-toggle:before {
+            color: #444;
+        }
+        .hideShowPassword-toggle:hover:before, .hideShowPassword-toggle:focus:before {
+            color: #111;
+        }
+    </style>
+</head>
+<body>
+<div style="margin:auto">
+    <div class="panel-body">
+        <form id="pwdForm">
+            <div class="form-group">
+                <label for="oldPwd" class="control-label">旧密码：</label>
+                <input id="oldPwd" name="oldPwd" class="form-control" type="password"
+                       autocomplete="new-password"
+                       maxlength="100"
+                       placeholder="旧密码">
+            </div>
+            <div class="form-group">
+                <label for="newPwd" class="control-label">新密码：</label>
+                <input id="newPwd" name="newPwd" class="form-control" type="password"
+                          maxlength="100"
+                          placeholder="新密码"/>
+            </div>
+            <div class="form-group">
+                <label for="confirmPwd" class="control-label">确认密码：</label>
+                <input id="confirmPwd" name="confirmPwd" class="form-control" type="password"
+                          autocomplete="new-password"
+                          maxlength="100"
+                          placeholder="确认密码"/>
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+</div>
+<#include "../footer.html"/>
+<script src="statics/plugins/hideshowpassword/js/modernizr.js"></script>
+<script src="statics/plugins/hideshowpassword/js/vendor/hideShowPassword.min.js"></script>
+<script src="statics/js/sys/pwd.js?t=${.now?long}"></script>
+</body>
+</html>

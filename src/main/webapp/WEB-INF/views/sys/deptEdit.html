@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <base href="${base}"/>
+    <title>部门新增和修改</title>
+    <#include "../header.html"/>
+</head>
+<body>
+<div style="margin:auto">
+    <div class="panel-body">
+        <form id="deptForm">
+            <input id="deptId" name="id" type="hidden" value="${(dept.id)!}">
+            <div class="form-group">
+                <label for="parentName" class="control-label">上级部门：</label>
+                <input id="parentId" name="parentId" type="hidden" value="${(dept.parentId)!0}">
+                <input id="parentName" name="parentName" class="form-control" style="cursor:pointer"
+                       type="text" readonly
+                       placeholder="选择部门"
+                       value="${(dept.parentName)!'顶级部门'}"
+                       onclick="selectDept()">
+            </div>
+            <div class="form-group">
+                <label for="deptName" class="control-label">部门名称：</label>
+                <input id="deptName" name="deptName" class="form-control" type="text"
+                       autocomplete="new-password"
+                       maxlength="50"
+                       placeholder="部门名称"
+                       value="${(dept.deptName)!}">
+            </div>
+            <div class="form-group">
+                <label for="deptDesc" class="control-label">部门描述：</label>
+                <textarea id="deptDesc" name="deptDesc" class="form-control"
+                          rows="3"
+                          maxlength="200"
+                          placeholder="部门描述">${(dept.deptDesc)!}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="orderNo" class="control-label">排序号：</label>
+                <input id="orderNo" name="orderNo" class="form-control" type="number"
+                       min="1" max="1000"
+                       placeholder="排序号"
+                       value="${(dept.orderNo)!1}">
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+</div>
+<!-- 部门选择 -->
+<div id="deptLayer" style="display: none">
+    <ul id="deptTree" class="ztree"></ul>
+</div>
+<#include "../footer.html"/>
+<!--部门js-->
+<script src="statics/js/sys/deptEdit.js?t=${.now?long}"></script>
+</body>
+</html>

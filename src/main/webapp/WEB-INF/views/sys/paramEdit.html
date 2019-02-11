@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <base href="${base}"/>
+    <title>系统参数</title>
+    <#include "../header.html">
+</head>
+<body>
+<div style="margin:auto">
+    <div class="panel-body">
+        <form id="paramForm">
+            <input id="paramId" name="id" type="hidden" value="${(param.id)!}">
+            <div class="form-group">
+                <label for="paramKey" class="control-label">参数键名：</label>
+                <input id="paramKey" name="paramKey" class="form-control" type="text"
+                       placeholder="参数键名"
+                       value="${(param.paramKey)!}">
+            </div>
+            <div class="form-group">
+                <label for="paramValue" class="control-label">参数键值：</label>
+                <input id="paramValue" name="paramValue" class="form-control" type="text"
+                       placeholder="参数键值"
+                       value="${(param.paramValue)!}">
+            </div>
+            <div class="form-group">
+                <label for="paramDesc" class="control-label">参数描述：</label>
+                <textarea id="paramDesc" name="paramDesc" class="form-control" type="text"
+                       placeholder="参数描述">${(param.paramDesc)!}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+</div>
+<#include "../footer.html">
+<script src="statics/js/sys/paramEdit.js?t=${.now?long}"></script>
+</body>
+</html>

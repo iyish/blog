@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- save shiro session  -->
+    <bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+        <property name="host" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="database" value="${redis.database}"/>
+        <property name="timeout" value="${redis.timeout}"/>
+        <property name="jedisPoolConfig" ref="jedisPoolConfig"/>
+    </bean>
+    <!-- spring shiro redis池配置  -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--控制一个pool最多有多少个状态为idle的jedis实例-->
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <!--控制一个pool可分配多少个jedis实例-->
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <!--当borrow一个jedis实例时,最大的等待时间,如果超过等待时间,则直接抛出JedisConnectionException-->
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <!--在borrow一个jedis实例时,是否提前进行validate操作;如果为true,则得到的jedis实例均是可用的-->
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+
+</beans>

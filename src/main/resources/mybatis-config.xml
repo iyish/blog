@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+        <!-- 开启二级缓存,默认值为true  -->
+        <setting name="cacheEnabled" value="true" />
+        <!-- 开启自动驼峰转换  -->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+    <!-- bean别名  -->
+	<typeAliases>
+        <package name="com.spring.sys.pojo" />
+        <package name="com.spring.job.pojo" />
+        <package name="com.spring.gen.pojo" />
+        <package name="com.spring.profile.pojo" />
+	</typeAliases>
+    <plugins>
+		<!-- pagehelper分页工具拦截器插件配置  -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="offsetAsPageNum" value="false"/>
+            <property name="rowBoundsWithCount" value="true"/>
+            <property name="pageSizeZero" value="false"/>
+            <property name="reasonable" value="true"/>
+            <property name="supportMethodsArguments" value="false"/>
+        </plugin>
+    </plugins>
+</configuration>
